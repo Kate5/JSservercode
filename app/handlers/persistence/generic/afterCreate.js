@@ -11,43 +11,28 @@
 *
 * @returns {Object|Promise.<Object>|void} By returning a value you overwrite server's result
 */
-Backendless.ServerCode.Persistence.afterCreate('*', function(req, res) {
+Backendless.enablePromises();
+Backendless.ServerCode.PersistenceItem.Persistence.afterCreate('*', function(req, res) {
 
     console.log( "afterCreate" );
-    function Contact(args) {
-        args = args || {};
-        this.name = args.name || "";
-        this.age = args.age || "";
-        this.phone = args.phone || "";
-        this.title = args.title || "";
+
+    class Contact extends Backendless.ServerCode.PersistenceItem {
+
     }
 
-    var contactObject = new Contact( {
-        name: "afterCreate",
-        age: 4,
-        phone: "1",
-        title: "c"
+    Contact.findFirst().then(firstContact => {
+        firstContact.name += 'asdasd';
+        return firstContact.save();
     });
 
-    function successCallback() {
-        console.log( result );
-    }
+    var contactObject = new Contact();
+    contactObject.name = "afterCreate";
+    contactObject.age = 4;
+    //    phone: "1",
+    //    title: "c"
+    //};
 
-    function errorCallback() {
-        console.log( err.message );
-    }
-
-    var failureCallback = function ( fault )
-    {
-        response.status( 500 ).send( fault );
-    };
-
-    var savedContact = Backendless.Persistence.of( Contact ).save( contactObject, new Backendless.Async(
-        function ( result )
-        {
-            response.send( result );
-        }, failureCallback )
-
-    );
+    return contactObject.save();
+    //return Backendless.Persistence.of( 'Contact' ).save( contactObject);
 
 });

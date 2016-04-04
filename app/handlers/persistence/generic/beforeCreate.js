@@ -10,40 +10,40 @@
 */
 Backendless.ServerCode.Persistence.beforeCreate('*', function(req) {
     console.log( "beforeCreate" );
-
-    function Contact(args) {
-        args = args || {};
-        this.name = args.name || "";
-        this.age = args.age || "";
-        this.phone = args.phone || "";
-        this.title = args.title || "";
-    }
-
-    var contactObject = new Contact( {
-        name: "beforeCreate",
-        age: 4,
-        phone: "1",
-        title: "c"
-    });
-
-   function successCallback() {
-       console.log( result );
-   }
-
-    function errorCallback() {
-        console.log( err.message );
-    }
-
-    var failureCallback = function ( fault )
-    {
-        response.status( 500 ).send( fault );
-    };
-
-    var savedContact = Backendless.Persistence.of( Contact ).save( contactObject,   new Backendless.Async(
-            function ( result )
-            {
-                response.send( result );
-            }, failureCallback )
-
-     );
+   //
+   // function Contact(args) {
+   //     args = args || {};
+   //     this.name = args.name || "";
+   //     this.age = args.age || "";
+   //     this.phone = args.phone || "";
+   //     this.title = args.title || "";
+   // }
+   //
+   // var contactObject = new Contact( {
+   //     name: "beforeCreate",
+   //     age: 4,
+   //     phone: "1",
+   //     title: "c"
+   // });
+   //
+   //function successCallback() {
+   //    console.log( result );
+   //}
+   //
+   // function errorCallback() {
+   //     console.log( err.message );
+   // }
+   //
+   // var failureCallback = function ( fault )
+   // {
+   //     response.status( 500 ).send( fault );
+   // };
+   //
+   // var savedContact = Backendless.Persistence.of( Contact ).save( contactObject,   new Backendless.Async(
+   //         function ( result )
+   //         {
+   //             response.send( result );
+   //         }, failureCallback )
+   //
+   //  );
 });
